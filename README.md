@@ -154,3 +154,140 @@ order_items
 ├── id, order_id, product_id
 ├── quantity, price_at_purchase
 └── created_at
+
+```
+
+## 🚦 API Endpoints
+
+### Authentication
+* POST /auth/register → Create new account
+* POST /auth/login → Login and get tokens
+* POST /auth/refresh → Get new access token
+* GET /auth/profile → View my profile (protected)
+* POST /auth/logout → Logout (protected)
+
+
+### Products
+* GET /products/ → Browse with search, filter, pagination
+* GET /products/{id} → Product detail page
+* POST /products/ → Create product (admin only)
+* PUT /products/{id} → Update product (admin only)
+* DELETE /products/{id} → Soft delete product (admin only)
+* GET /products/categories → Get all categories
+* POST /products/categories → Create category (admin only)
+
+
+### Cart
+* GET /cart/ → View cart with totals (protected)
+* POST /cart/items → Add item to cart (protected)
+* PUT /cart/items/{id} → Update item quantity (protected)
+* DELETE /cart/items/{id} → Remove item from cart (protected)
+* DELETE /cart/ → Clear entire cart (protected)
+
+
+### Orders
+* POST /orders/ → Place order from cart (protected)
+* GET /orders/ → My order history (protected)
+* GET /orders/{id} → Order detail (protected)
+* PUT /orders/{id}/status → Update order status (admin only)
+
+
+### Admin Panel
+* GET /admin/dashboard → Live stats (admin only)
+* GET /admin/users → All users (admin only)
+* PUT /admin/users/{id}/deactivate → Ban user (admin only)
+* GET /admin/orders → All orders with filter (admin only)
+* PUT /admin/orders/{id}/status → Update status (admin only)
+* GET /admin/products → All products (admin only)
+* POST /admin/products → Create product (admin only)
+* PUT /admin/products/{id} → Update product (admin only)
+* DELETE /admin/products/{id} → Soft delete (admin only)
+
+
+### WebSockets
+* WS /ws/orders/{order_id} → Order status updates
+* WS /ws/admin → Admin live dashboard
+* WS /ws/notifications/{user_id} → User notifications
+
+## 🛠️ Local Setup
+
+###Prerequisites
+* Python 3.12+
+* PostgreSQL 15+
+* Node.js 18+
+* Homebrew (Mac)
+
+## Backend Setup
+
+```text
+
+# Clone the repo
+git clone [https://github.com/charanreddy1410/ecommerce.git](https://github.com/charanreddy1410/ecommerce.git)
+cd ecommerce
+
+# Create and activate virtual environment
+python3 -m venv venv
+source venv/bin/activate        # Mac/Linux
+# .\venv\Scripts\activate       # Windows
+
+# Install dependencies
+pip3 install -r requirements.txt
+
+# Create .env file from example
+cp .env.example .env
+
+# Start PostgreSQL (Mac)
+brew services start postgresql@15
+
+# Run the backend server
+uvicorn backend.main:app --reload
+
+```
+
+## Frontend Setup
+
+```text
+
+cd frontend
+npm install
+npm start
+
+```
+
+## Environment Variables
+```text
+Create a .env file in the root folder:
+```
+
+```text
+DATABASE_URL=postgresql+asyncpg://postgres:yourpassword@localhost:5432/ecommerce
+SECRET_KEY=your-super-secret-key-change-this-in-production
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+REFRESH_TOKEN_EXPIRE_DAYS=7
+APP_NAME=Ecommerce API
+DEBUG=True
+```
+
+## 📦 Dependencies
+
+```text
+
+fastapi
+uvicorn
+sqlalchemy
+asyncpg
+alembic
+pydantic
+pydantic-settings
+passlib
+python-jose
+python-dotenv
+bcrypt
+email-validator
+
+```
+
+## 👨‍💻 Author
+## Bathineni Kowshik
+## ⭐ If you found this project helpful, please give it a star!
